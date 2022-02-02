@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,9 +5,9 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 public class PA2 {
-	static int maxStops = 99; 				  // resonable number of stops
+	static int maxStops = 99; 				  					// resonable number of stops
 	public static void main(String[] args) {
-		Connection conn = null;               // Database connection.
+		Connection conn = null;               							// Database connection.
 		try {
 			Class.forName("org.sqlite.JDBC"); // Load the JDBC class.
 			conn = DriverManager.getConnection("jdbc:sqlite:pa2.db"); 
@@ -29,11 +28,8 @@ public class PA2 {
 				+ "AND c1.destination = c2.origin" + " AND c1.airline = c2.airline" 
 				+ " AND NOT EXISTS (SELECT * FROM connected c3 WHERE c3.origin = c1.origin" 
 				+ " AND c3.destination = c2.destination AND c3.airline = c1.airline) AND c1.origin <> c2.destination;"; 
-				// System.out.println("BBB " + i + " " + delta);
 				PreparedStatement insertStmt = conn.prepareStatement(delta);
 				int insertedLines = insertStmt.executeUpdate();
-				//n += insertedLines;
-				//System.out.println("Number of Total Lines " + n);
 				if (insertedLines == 0) break;
 			}
 			stmt.close();
